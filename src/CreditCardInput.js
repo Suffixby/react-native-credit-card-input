@@ -44,6 +44,7 @@ const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WI
 const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
 const PREVIOUS_FIELD_OFFSET = 40;
 const POSTAL_CODE_INPUT_WIDTH = 120;
+const VERTICAL_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
 export default class CreditCardInput extends Component {
@@ -173,21 +174,58 @@ export default class CreditCardInput extends Component {
           style={s.form}>
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
-            containerStyle={[verticalInput ? s.verticalInputContainer : s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+            containerStyle={
+              [verticalInput ? s.verticalInputContainer : s.inputContainer,
+              inputContainerStyle, 
+              { width: verticalInput 
+                ? VERTICAL_INPUT_WIDTH
+                : CARD_NUMBER_INPUT_WIDTH }]
+            }
+          />
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
-            containerStyle={[verticalInput ? s.verticalInputContainer : s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
+            containerStyle={
+              [verticalInput ? s.verticalInputContainer : s.inputContainer,
+              inputContainerStyle,
+              { width: verticalInput 
+                ? VERTICAL_INPUT_WIDTH
+                : EXPIRY_INPUT_WIDTH }]
+            }
+          />
           { requiresCVC &&
             <CCInput {...this._inputProps("cvc")}
               keyboardType="numeric"
-              containerStyle={[verticalInput ? s.verticalInputContainer : s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
+              containerStyle={
+                [verticalInput ? s.verticalInputContainer : s.inputContainer,
+                inputContainerStyle,
+                { width: verticalInput 
+                  ? VERTICAL_INPUT_WIDTH
+                  : CVC_INPUT_WIDTH }]
+              } 
+            /> 
+          }
           { requiresName &&
             <CCInput {...this._inputProps("name")}
-            containerStyle={[verticalInput ? s.verticalInputContainer : s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
+            containerStyle={
+              [verticalInput ? s.verticalInputContainer : s.inputContainer,
+              inputContainerStyle,
+              { width: verticalInput 
+                ? VERTICAL_INPUT_WIDTH
+                : NAME_INPUT_WIDTH }]}
+            />
+          }
           { requiresPostalCode &&
             <CCInput {...this._inputProps("postalCode")}
               keyboardType="numeric"
-              containerStyle={[verticalInput ? s.verticalInputContainer : s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
+              containerStyle={
+                [verticalInput ? s.verticalInputContainer : s.inputContainer,
+                inputContainerStyle,
+                { width: verticalInput 
+                  ? VERTICAL_INPUT_WIDTH
+                  : POSTAL_CODE_INPUT_WIDTH }]
+              }
+            />
+          }
         </ScrollView>
       </View>
     );
