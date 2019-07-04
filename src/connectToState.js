@@ -56,6 +56,19 @@ export default function connectToState(CreditCardInput) {
       this.props.autoFocus && this.focus("number");
     });
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.outerValues && this.props.outerValues) return;
+      if (!nextProps.outerValues) return;
+      const { outerValues: { number, expiry, name, cvc } } = nextProps;
+
+      this.setValues({
+        number,
+        expiry,
+        name,
+        cvc,
+      });
+    }
+
     setValues = values => {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
